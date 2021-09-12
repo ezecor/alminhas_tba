@@ -28,7 +28,10 @@ map.addControl(sidebar);
 var lc = L.control.locate({
     strings: {
         title: "A minha posição!"
-    }
+    },
+    locateOptions: {
+               maxZoom: 15
+    }    
 });
 lc.addTo(map);
 var counter = 0;

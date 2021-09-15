@@ -30,14 +30,15 @@ var lc = L.control.locate({
         title: "A minha posição!"
     },
     locateOptions: {
-               maxZoom: 15
-    }    
+        maxZoom: 10
+    }
 });
 lc.addTo(map);
 var counter = 0;
 var freg = [];
 var markers;
 var realce;
+var foto;
 var geojson = L.geoJSON(alminhas, {
     onEachFeature: atributos
 });
@@ -86,7 +87,9 @@ function atributos(feature, layer) {
                 } else {
                     obs = "<a href='" + feature.properties["OBS"] + "' target='popup'><b>Ficha de inventário</b></a>";
                 }
-                sidebar.setContent("<img height='200' src=" + feature.properties["gx_media_links"] + " >" + "<br>LUGAR: " + feature.properties.name + "<br>FREGUESIA: " + feature.properties.FREGUESIA + "<br>PAINEL: " + feature.properties.PAINEL + "<br> DESCRIÇÃO DO ORATÓRIO: " + feature.properties["DESCRIÇÃO DO ORATÓRIO"] + "<br><br>" + obs);
+                foto = feature.properties["gx_media_links"];
+                sidebar.setContent("<div><a href=" + foto + " target=_blank><img height='200' src=" + foto + " style='cursor:zoom-in'></a></div>" + "<br>LUGAR: " + feature.properties.name + "<br>FREGUESIA: " + feature.properties.FREGUESIA + "<br>PAINEL: " + feature.properties.PAINEL + "<br> DESCRIÇÃO DO ORATÓRIO: " + feature.properties["DESCRIÇÃO DO ORATÓRIO"] + "<br><br>" + obs);
+
                 if (realce == null) {
                     realce = L.circleMarker([feature.properties.LAT, feature.properties.LONG], {
                         "radius": 15,
@@ -131,4 +134,5 @@ function selFreg() {
     map.addLayer(markers);
     map.fitBounds(markers.getBounds());
     document.getElementById('contador').innerHTML = "Nº de alminhas: " + counter;
-}
+}                
+        
